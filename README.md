@@ -17,4 +17,21 @@ for (var num=1; num<=100; num++)
     }
     console.log(string || num);
   })(num)
-  ```
+```
+
+### join 2 arrays
+
+```javascript
+var animals = ['Cat', 'Dog', 'Mouse'];
+var numbers = [1, 2, 3, 4];
+var combined = [];
+
+animals.forEach(function (ani) {
+  var anibers = numbers.map(function (bers) {
+    return ani + bers;
+  });
+  combined = combined.concat(anibers);
+});
+
+console.log(combined);
+```
