@@ -1,5 +1,5 @@
 # code-samples
-code samples for fun
+various neat tricks
 
 ### fizzbuzz
 
@@ -32,6 +32,27 @@ animals.forEach(function (ani) {
   });
   combined = combined.concat(anibers);
 });
-
 console.log(combined);
+```
+### watch for variable change
+```javascript
+var item = 2; // init value
+var cache = item; //cache the value
+
+function checkItem() {
+  if(item === cache) { // item is the same as cache?
+    setTimeout(checkItem, 250); //check value every 250ms
+    console.log('no change');
+    return; // start over
+  }
+  cache = item;
+  console.log('changed');
+}
+
+function changeItem() {
+  item = false;
+}
+
+checkItem(); 
+setTimeout(changeItem(), 5000)
 ```
