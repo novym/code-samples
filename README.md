@@ -37,22 +37,23 @@ console.log(combined);
 ### watch for variable change
 ```javascript
 var item = 2; // init value
-var cache = item; //cache the value
+var CACHE = item; //cache the value
 
 function checkItem() {
-  if(item === cache) { // item is the same as cache?
+  if(item === CACHE) { // item is the same as cache?
     setTimeout(checkItem, 250); //check value every 250ms
-    console.log('no change');
+    document.write('<p style="color: red">'+ item +'</p>')
     return; // start over
   }
-  cache = item;
-  console.log('changed');
+  CACHE = item;
+document.write('<p style="color: green">'+ item +'</p>');
 }
+
+checkItem();
 
 function changeItem() {
   item = false;
 }
 
-checkItem(); 
-setTimeout(changeItem(), 5000)
+setTimeout(changeItem, 3000);
 ```
