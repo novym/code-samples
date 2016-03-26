@@ -57,3 +57,22 @@ function changeItem() {
 
 setTimeout(changeItem, 3000);
 ```
+### read file line by line and test if numbers are even or odd
+
+```javascript
+var readStream = require('fs').createReadStream(process.argv[2]);
+var readlines = require('readline').createInterface({
+  input: readStream
+});
+
+readlines.on('line', function (line) {
+  if (line%2 === 0) {
+      console.log(1);
+    } else {
+      console.log(0);
+    }
+});
+readlines.on('error', function(error) {
+  console.log(error);
+});
+```
