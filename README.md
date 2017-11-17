@@ -77,7 +77,7 @@ readlines.on('error', function(error) {
 });
 ```
 
-## add event listener mixin
+### addEvent listener mixin
 ```javascript
 const obj = addEventing({ id: 1, type: 'inherited' });
 
