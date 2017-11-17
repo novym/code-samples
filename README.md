@@ -76,3 +76,28 @@ readlines.on('error', function(error) {
   console.log(error);
 });
 ```
+
+## add event listener mixin
+const obj = addEventing({ id: 1, type: 'inherited' });
+
+obj.on('thisChange', ()=> console.log('THIS changed'));
+obj.trigger('thisChange');
+
+obj.on('thatChange', ()=> console.log('THAT changed'));
+obj.trigger('thatChange');
+
+
+function addEventing(object) {
+  object.events = object.events || [];
+  object.on = function(event, callback) {
+    object.events.push({ eventName: event, action: callback });
+  };
+
+  object.trigger = function(event) {
+    object.events.forEach(eventObj => {
+      eventObj.eventName === event ? eventObj.action() : null;
+    });
+  };
+
+  return object;
+}
