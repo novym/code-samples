@@ -1,6 +1,40 @@
 # code-samples
 various neat tricks
 
+### get value of object by path. Path can be nested. example: resolvePropDepth('name.first', obj)
+```javascript
+export function resolvePropDepth(path, obj) {
+  return path.split('.').reduce(function (prev, curr) {
+    return prev ? prev[curr] : null;
+  }, obj || this);
+}
+```
+
+### truncate string with max character count
+```javascript
+export function truncate(string, max) {
+  return string.length > max ? string.substring(0, max) + '...' : string;
+}
+```
+
+### flatten any depth of arrays or objects into a single array
+```javascript
+export function flatten() {
+  const flat = [];
+  for (let i = 0; i < arguments.length; i++) {
+    if (arguments[i] instanceof Array) {
+      flat.push(...flatten(...arguments[i]));
+    } else if (arguments[i] instanceof Object) {
+      flat.push(...flatten(...Object.values(arguments[i])));
+    } else {
+      flat.push(arguments[i]);
+    }
+  }
+
+  return flat;
+}
+```
+
 ### fizzbuzz
 
 ```javascript
