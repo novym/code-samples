@@ -3,12 +3,14 @@ various neat tricks
 
 ### get value of object by path. Path can be nested. example: resolvePropDepth('name.first', obj)
 ```javascript
-export function resolvePropDepth(path, obj) {
-  return path.split('.').reduce(function (prev, curr) {
+function resolvePropDepth(path, obj) {
+  return path.split(".").reduce((prev, curr) => {
     return prev ? prev[curr] : null;
-  }, obj || this);
+  }, obj);
 }
 ```
+example: [https://codepen.io/novym/pen/ExKarww](https://codepen.io/novym/pen/ExKarww)
+
 
 ### truncate string with max character count
 ```javascript
@@ -16,8 +18,9 @@ export function truncate(string, max) {
   return string.length > max ? string.substring(0, max) + '...' : string;
 }
 ```
+example: [https://codepen.io/novym/pen/yYGgre](https://codepen.io/novym/pen/yYGgre)
 
-### flatten any depth of arrays or objects into a single array
+### flatten any depth of arrays, objects, or primitives into a single array with any amount of arguments
 ```javascript
 export function flatten() {
   const flat = [];
@@ -34,40 +37,56 @@ export function flatten() {
   return flat;
 }
 ```
+example: [https://codepen.io/novym/pen/ZPdyBK](https://codepen.io/novym/pen/ZPdyBK)
 
 ### fizzbuzz
 
 ```javascript
-  for (var num=1; num<=100; num++)
-    (function(num){
-      var string = "";
+ function fizzBuzz() {
+   for (let num = 1; num <= 100; num++)
+    (function(num) {
+      let string = "";
       // multiples of 3?
-      if(num % 3 == 0){
-        string += "fizz"
+      if (num % 3 == 0){
+        string += 'fizz'
       }
       // multiples of 5?
-      if(num % 5 == 0){
-        string += "buzz"
+      if (num % 5 == 0){
+        string += 'buzz'
       }
+      
+      if (num % 7 == 0) {
+        string += 'bazz'
+      }
+      
       console.log(string || num);
     })(num)
-```
+ } 
 
-### join 2 arrays
+ fizzBuzz();
+```
+example: [https://codepen.io/novym/pen/MKRzRy](https://codepen.io/novym/pen/MKRzRy)
+
+### zip 2 arrays
 
 ```javascript
-var animals = ['Cat', 'Dog', 'Mouse'];
-var numbers = [1, 2, 3, 4];
-var combined = [];
-
-animals.forEach(function (ani) {
-  var anibers = numbers.map(function (bers) {
-    return ani + bers;
+function zip(array1, array2) {
+  let zipped = [];
+  
+  array1.forEach(itemA => {
+    const joined = array2.map(itemB => {
+      return itemA + itemB;
+    });
+    
+    zipped = [...zipped, ... joined];
   });
-  combined = combined.concat(anibers);
-});
-console.log(combined);
+  
+  return zipped
+}
 ```
+example: [https://codepen.io/novym/pen/jOqEdRV](https://codepen.io/novym/pen/jOqEdRV)
+
+
 ### watch for variable change
 ```javascript
 var item = 2; // init value
@@ -80,7 +99,7 @@ function checkItem() {
     return; // start over
   }
   CACHE = item;
-document.write('<p style="color: green">'+ item +'</p>');
+  document.write('<p style="color: green">'+ item +'</p>');
 }
 
 checkItem();
@@ -91,6 +110,20 @@ function changeItem() {
 
 setTimeout(changeItem, 3000);
 ```
+example: [https://codepen.io/novym/pen/QXdBez](https://codepen.io/novym/pen/QXdBez)
+
+### Group 2 collections by id
+```javascript
+const groupFamily = (parents, children) =>
+  parents.map(adult => (
+    {
+      ...adult, 
+      children: [...children.filter(child => adult.id === child.parentId)]
+    }
+  )).filter(adult => adult.children.length);
+```
+example: [https://codepen.io/novym/pen/RqYVXx](https://codepen.io/novym/pen/RqYVXx)
+
 ### read file line by line and test if numbers are even or odd
 
 ```javascript
@@ -106,6 +139,7 @@ readlines.on('line', function (line) {
       console.log(0);
     }
 });
+
 readlines.on('error', function(error) {
   console.log(error);
 });
@@ -115,10 +149,10 @@ readlines.on('error', function(error) {
 ```javascript
 const obj = addEventing({ id: 1, type: 'inherited' });
 
-obj.on('thisChange', ()=> console.log('THIS changed'));
+obj.on('thisChange', () => console.log('THIS changed'));
 obj.trigger('thisChange');
 
-obj.on('thatChange', ()=> console.log('THAT changed'));
+obj.on('thatChange', () => console.log('THAT changed'));
 obj.trigger('thatChange');
 
 
